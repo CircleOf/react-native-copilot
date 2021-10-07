@@ -23,7 +23,8 @@ type Props = {
   tooltipStyle?: Object | (step: Step) => Object,
   stepNumberComponent: ?React$Component,
   overlay: 'svg' | 'view',
-  animated: boolean,
+  overlayStyle?: Object | (step: Step) => Object,
+  animated: boolean | (step: Step) => boolean,
   androidStatusBarVisible: boolean,
   backdropColor: string,
   labels: Object,
@@ -33,6 +34,7 @@ type Props = {
   arrowStyle?: Object,
   stepNumberEnabled?: boolean,
   arrowEnabled?: boolean,
+  modalAnimationType?: 'none' | 'slide' | 'fade',
 };
 
 type State = {
@@ -250,11 +252,14 @@ class CopilotModal extends Component<Props, State> {
       ? require('./SvgMask').default
       : require('./ViewMask').default;
     /* eslint-enable */
+
+    const overlayStyle = isFunction(this.props.overlayStyle) ? this.props.overlayStyle(this.props.currentStep) : this.props.overlayStyle;
+
     return (
       <MaskComponent
         animated={this.props.animated}
         layout={this.state.layout}
-        style={styles.overlayContainer}
+        style={[styles.overlayContainer, overlayStyle]}
         size={this.state.size}
         position={this.state.position}
         easing={this.props.easing}

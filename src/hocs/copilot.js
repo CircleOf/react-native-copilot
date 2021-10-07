@@ -47,7 +47,8 @@ const copilot = ({
   arrowColor,
   arrowStyle,
   arrowEnabled,
-  stepNumberEnabled
+  stepNumberEnabled,
+  overlayStyle,
 } = {}) =>
   (WrappedComponent) => {
     class Copilot extends Component<any, State> {
@@ -218,6 +219,7 @@ const copilot = ({
               tooltipComponent={tooltipComponent}
               tooltipStyle={tooltipStyle}
               overlay={overlay}
+              overlayStyle={overlayStyle}
               animated={animated}
               androidStatusBarVisible={androidStatusBarVisible}
               backdropColor={backdropColor}
