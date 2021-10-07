@@ -30,6 +30,7 @@ type Props = {
   arrowColor?: string,
   arrowStyle?: Object,
   stepNumberEnabled?: boolean,
+  arrowEnabled?: boolean,
 };
 
 type State = {
@@ -63,6 +64,7 @@ class CopilotModal extends Component<Props, State> {
     stopOnOutsideClick: false,
     arrowColor: '#fff',
     stepNumberEnabled: true,
+    arrowEnabled: true,
   };
 
   state = {
@@ -266,6 +268,7 @@ class CopilotModal extends Component<Props, State> {
   renderTooltip() {
     const {
       stepNumberEnabled,
+      arrowEnabled,
       tooltipComponent: TooltipComponent,
       stepNumberComponent: StepNumberComponent,
     } = this.props;
@@ -291,7 +294,9 @@ class CopilotModal extends Component<Props, State> {
             />
           </Animated.View>
         )}
-        <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
+        {arrowEnabled && (
+          <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
+        )}
         <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, this.props.tooltipStyle]}>
           <TooltipComponent
             isFirstStep={this.props.isFirstStep}
