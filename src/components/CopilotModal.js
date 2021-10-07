@@ -6,6 +6,8 @@ import StepNumber from './StepNumber';
 import styles, { MARGIN, ARROW_SIZE, STEP_NUMBER_DIAMETER, STEP_NUMBER_RADIUS } from './style';
 import type { SvgMaskPathFn } from '../types';
 
+const isFunction = value => value && (Object.prototype.toString.call(value) === "[object Function]" || "function" === typeof value || value instanceof Function);
+
 type Props = {
   stop: () => void,
   next: () => void,
@@ -273,7 +275,7 @@ class CopilotModal extends Component<Props, State> {
       stepNumberComponent: StepNumberComponent,
     } = this.props;
 
-    const tooltipStyle = this.props.tooltipStyle === 'function' ? this.props.tooltipStyle(this.props.currentStep) : this.props.tooltipStyle;
+    const tooltipStyle = isFunction(this.props.tooltipStyle) ? this.props.tooltipStyle(this.props.currentStep) : this.props.tooltipStyle;
 
     return (
       <>
