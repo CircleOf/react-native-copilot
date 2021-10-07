@@ -28,6 +28,8 @@ type Props = {
   svgMaskPath?: SvgMaskPathFn,
   stopOnOutsideClick?: boolean,
   arrowColor?: string,
+  arrowStyle?: Object,
+  stepNumberEnabled?: boolean,
 };
 
 type State = {
@@ -49,6 +51,7 @@ class CopilotModal extends Component<Props, State> {
     animationDuration: 400,
     tooltipComponent: Tooltip,
     tooltipStyle: {},
+    arrowStyle: {},
     stepNumberComponent: StepNumber,
     // If react-native-svg native module was avaialble, use svg as the default overlay component
     overlay: typeof NativeModules.RNSVGSvgViewManager !== 'undefined' ? 'svg' : 'view',
@@ -59,6 +62,7 @@ class CopilotModal extends Component<Props, State> {
     labels: {},
     stopOnOutsideClick: false,
     arrowColor: '#fff',
+    stepNumberEnabled: true,
   };
 
   state = {
@@ -261,41 +265,46 @@ class CopilotModal extends Component<Props, State> {
 
   renderTooltip() {
     const {
+      stepNumberEnabled,
       tooltipComponent: TooltipComponent,
       stepNumberComponent: StepNumberComponent,
     } = this.props;
 
-    return [
-      <Animated.View
-        key="stepNumber"
-        style={[
-          styles.stepNumberContainer,
-          {
-            left: this.state.animatedValues.stepNumberLeft,
-            top: Animated.add(this.state.animatedValues.top, -STEP_NUMBER_RADIUS),
-          },
-        ]}
-      >
-        <StepNumberComponent
-          isFirstStep={this.props.isFirstStep}
-          isLastStep={this.props.isLastStep}
-          currentStep={this.props.currentStep}
-          currentStepNumber={this.props.currentStepNumber}
-        />
-      </Animated.View>,
-      <Animated.View key="arrow" style={[styles.arrow, this.state.arrow]} />,
-      <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, this.props.tooltipStyle]}>
-        <TooltipComponent
-          isFirstStep={this.props.isFirstStep}
-          isLastStep={this.props.isLastStep}
-          currentStep={this.props.currentStep}
-          handleNext={this.handleNext}
-          handlePrev={this.handlePrev}
-          handleStop={this.handleStop}
-          labels={this.props.labels}
-        />
-      </Animated.View>,
-    ];
+    return (
+      <>
+        {stepNumberEnabled && (
+          <Animated.View
+            key="stepNumber"
+            style={[
+              styles.stepNumberContainer,
+              {
+                left: this.state.animatedValues.stepNumberLeft,
+                top: Animated.add(this.state.animatedValues.top, -STEP_NUMBER_RADIUS),
+              },
+            ]}
+          >
+            <StepNumberComponent
+              isFirstStep={this.props.isFirstStep}
+              isLastStep={this.props.isLastStep}
+              currentStep={this.props.currentStep}
+              currentStepNumber={this.props.currentStepNumber}
+            />
+          </Animated.View>
+        )}
+        <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
+        <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, this.props.tooltipStyle]}>
+          <TooltipComponent
+            isFirstStep={this.props.isFirstStep}
+            isLastStep={this.props.isLastStep}
+            currentStep={this.props.currentStep}
+            handleNext={this.handleNext}
+            handlePrev={this.handlePrev}
+            handleStop={this.handleStop}
+            labels={this.props.labels}
+          />
+        </Animated.View>
+      </>
+    )
   }
 
   render() {
