@@ -18,7 +18,7 @@ type Props = {
   easing: ?func,
   animationDuration: ?number,
   tooltipComponent: ?React$Component,
-  tooltipStyle?: Object,
+  tooltipStyle?: Object | (step: Step) => Object,
   stepNumberComponent: ?React$Component,
   overlay: 'svg' | 'view',
   animated: boolean,
@@ -273,6 +273,8 @@ class CopilotModal extends Component<Props, State> {
       stepNumberComponent: StepNumberComponent,
     } = this.props;
 
+    const tooltipStyle = this.props.tooltipStyle === 'function' ? this.props.tooltipStyle(this.props.currentStep) : this.props.tooltipStyle;
+
     return (
       <>
         {stepNumberEnabled && (
@@ -297,7 +299,7 @@ class CopilotModal extends Component<Props, State> {
         {arrowEnabled && (
           <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
         )}
-        <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, this.props.tooltipStyle]}>
+        <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, tooltipStyle]}>
           <TooltipComponent
             isFirstStep={this.props.isFirstStep}
             isLastStep={this.props.isLastStep}
