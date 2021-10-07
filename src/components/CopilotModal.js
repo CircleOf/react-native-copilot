@@ -6,7 +6,7 @@ import StepNumber from './StepNumber';
 import styles, { MARGIN, ARROW_SIZE, STEP_NUMBER_DIAMETER, STEP_NUMBER_RADIUS } from './style';
 import type { SvgMaskPathFn } from '../types';
 
-const isFunction = value => value && (Object.prototype.toString.call(value) === '[object Function]' || typeof value === 'function' || value instanceof Function);
+const isFunction = value => value && (Object.prototype.toString.call(value) === "[object Function]" || "function" === typeof value || value instanceof Function);
 
 type Props = {
   stop: () => void,
@@ -286,38 +286,42 @@ class CopilotModal extends Component<Props, State> {
     const tooltipStyle = isFunction(this.props.tooltipStyle) ? this.props.tooltipStyle(this.props.currentStep) : this.props.tooltipStyle;
 
     return (
-      <>'       '{stepNumberEnabled && (
-      <Animated.View
-        key="stepNumber"
-        style={[
+      <>
+        {stepNumberEnabled && (
+          <Animated.View
+            key="stepNumber"
+            style={[
               styles.stepNumberContainer,
               {
                 left: this.state.animatedValues.stepNumberLeft,
                 top: Animated.add(this.state.animatedValues.top, -STEP_NUMBER_RADIUS),
               },
             ]}
-      >
-        <StepNumberComponent
-          isFirstStep={this.props.isFirstStep}
-          isLastStep={this.props.isLastStep}
-          currentStep={this.props.currentStep}
-          currentStepNumber={this.props.currentStepNumber}
-        />
-      </Animated.View>
-      )}'       '{arrowEnabled && (
-      <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
-      )}'       '<Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, tooltipStyle]}>
-        <TooltipComponent
-          isFirstStep={this.props.isFirstStep}
-          isLastStep={this.props.isLastStep}
-          currentStep={this.props.currentStep}
-          handleNext={this.handleNext}
-          handlePrev={this.handlePrev}
-          handleStop={this.handleStop}
-          labels={this.props.labels}
-        />
-      </Animated.View>'     '</>
-    );
+          >
+            <StepNumberComponent
+              isFirstStep={this.props.isFirstStep}
+              isLastStep={this.props.isLastStep}
+              currentStep={this.props.currentStep}
+              currentStepNumber={this.props.currentStepNumber}
+            />
+          </Animated.View>
+        )}
+        {arrowEnabled && (
+          <Animated.View key="arrow" style={[styles.arrow, this.state.arrow, this.props.arrowStyle]} />
+        )}
+        <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip, tooltipStyle]}>
+          <TooltipComponent
+            isFirstStep={this.props.isFirstStep}
+            isLastStep={this.props.isLastStep}
+            currentStep={this.props.currentStep}
+            handleNext={this.handleNext}
+            handlePrev={this.handlePrev}
+            handleStop={this.handleStop}
+            labels={this.props.labels}
+          />
+        </Animated.View>
+      </>
+    )
   }
 
   render() {
