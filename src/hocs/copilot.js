@@ -28,6 +28,7 @@ type State = {
   backdropColor: string,
   scrollView?: React.RefObject,
   stopOnOutsideClick?: boolean,
+
 };
 
 const copilot = ({
@@ -44,6 +45,9 @@ const copilot = ({
   verticalOffset = 0,
   wrapperStyle,
   arrowColor,
+  arrowStyle,
+  arrowEnabled,
+  stepNumberEnabled
 } = {}) =>
   (WrappedComponent) => {
     class Copilot extends Component<any, State> {
@@ -220,6 +224,9 @@ const copilot = ({
               svgMaskPath={svgMaskPath}
               stopOnOutsideClick={stopOnOutsideClick}
               arrowColor={arrowColor}
+              arrowEnabled={arrowEnabled}
+              arrowStyle={arrowStyle}
+              stepNumberEnabled={stepNumberEnabled}
               ref={(modal) => { this.modal = modal; }}
             />
           </View>
