@@ -327,7 +327,7 @@ class CopilotModal extends Component<Props, State> {
 
     return (
       <Modal
-        animationType="none"
+        animationType={this.props.modalAnimationType}
         visible={containerVisible}
         onRequestClose={noop}
         transparent
