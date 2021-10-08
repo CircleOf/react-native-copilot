@@ -283,7 +283,9 @@ class CopilotModal extends Component<Props, State> {
       stepNumberComponent: StepNumberComponent,
     } = this.props;
 
-    const tooltipStyle = isFunction(this.props.tooltipStyle) ? this.props.tooltipStyle(this.props.currentStep) : this.props.tooltipStyle;
+    const tooltipStyle = isFunction(this.props.tooltipStyle)
+      ? this.props.tooltipStyle(this.props.currentStep, this.state.position, this.state.size)
+      : this.props.tooltipStyle;
 
     return (
       <>
