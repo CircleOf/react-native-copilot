@@ -123,52 +123,52 @@ class CopilotModal extends Component<Props, State> {
       obj.top -= StatusBar.currentHeight; // eslint-disable-line no-param-reassign
     }
 
-    let stepNumberLeft = obj.left - STEP_NUMBER_RADIUS;
+    let stepNumberLeft = 0;
 
-    if (stepNumberLeft < 0) {
-      stepNumberLeft = (obj.left + obj.width) - STEP_NUMBER_RADIUS;
-      if (stepNumberLeft > layout.width - STEP_NUMBER_DIAMETER) {
-        stepNumberLeft = layout.width - STEP_NUMBER_DIAMETER;
-      }
-    }
+    // if (stepNumberLeft < 0) {
+    //   stepNumberLeft = (obj.left + obj.width) - STEP_NUMBER_RADIUS;
+    //   if (stepNumberLeft > layout.width - STEP_NUMBER_DIAMETER) {
+    //     stepNumberLeft = layout.width - STEP_NUMBER_DIAMETER;
+    //   }
+    // }
 
-    const center = {
-      x: obj.left + (obj.width / 2),
-      y: obj.top + (obj.height / 2),
-    };
+    // const center = {
+    //   x: obj.left + (obj.width / 2),
+    //   y: obj.top + (obj.height / 2),
+    // };
 
-    const relativeToLeft = center.x;
-    const relativeToTop = center.y;
-    const relativeToBottom = Math.abs(center.y - layout.height);
-    const relativeToRight = Math.abs(center.x - layout.width);
+    // const relativeToLeft = center.x;
+    // const relativeToTop = center.y;
+    // const relativeToBottom = Math.abs(center.y - layout.height);
+    // const relativeToRight = Math.abs(center.x - layout.width);
 
-    const verticalPosition = relativeToBottom > relativeToTop ? 'bottom' : 'top';
-    const horizontalPosition = relativeToLeft > relativeToRight ? 'left' : 'right';
+    // const verticalPosition = relativeToBottom > relativeToTop ? 'bottom' : 'top';
+    // const horizontalPosition = relativeToLeft > relativeToRight ? 'left' : 'right';
 
     const tooltip = {};
     const arrow = {};
 
-    if (verticalPosition === 'bottom') {
-      tooltip.top = obj.top + obj.height + MARGIN;
-      arrow.borderBottomColor = this.props.arrowColor;
-      arrow.top = tooltip.top - (ARROW_SIZE * 2);
-    } else {
-      tooltip.bottom = layout.height - (obj.top - MARGIN);
-      arrow.borderTopColor = this.props.arrowColor;
-      arrow.bottom = tooltip.bottom - (ARROW_SIZE * 2);
-    }
-
-    if (horizontalPosition === 'left') {
-      tooltip.right = Math.max(layout.width - (obj.left + obj.width), 0);
-      tooltip.right = tooltip.right === 0 ? tooltip.right + MARGIN : tooltip.right;
-      tooltip.maxWidth = layout.width - tooltip.right - MARGIN;
-      arrow.right = tooltip.right + MARGIN;
-    } else {
-      tooltip.left = Math.max(obj.left, 0);
-      tooltip.left = tooltip.left === 0 ? tooltip.left + MARGIN : tooltip.left;
-      tooltip.maxWidth = layout.width - tooltip.left - MARGIN;
-      arrow.left = tooltip.left + MARGIN;
-    }
+    // if (verticalPosition === 'bottom') {
+    //   tooltip.top = obj.top + obj.height + MARGIN;
+    //   arrow.borderBottomColor = this.props.arrowColor;
+    //   arrow.top = tooltip.top - (ARROW_SIZE * 2);
+    // } else {
+    //   tooltip.bottom = layout.height - (obj.top - MARGIN);
+    //   arrow.borderTopColor = this.props.arrowColor;
+    //   arrow.bottom = tooltip.bottom - (ARROW_SIZE * 2);
+    // }
+    //
+    // if (horizontalPosition === 'left') {
+    //   tooltip.right = Math.max(layout.width - (obj.left + obj.width), 0);
+    //   tooltip.right = tooltip.right === 0 ? tooltip.right + MARGIN : tooltip.right;
+    //   tooltip.maxWidth = layout.width - tooltip.right - MARGIN;
+    //   arrow.right = tooltip.right + MARGIN;
+    // } else {
+    //   tooltip.left = Math.max(obj.left, 0);
+    //   tooltip.left = tooltip.left === 0 ? tooltip.left + MARGIN : tooltip.left;
+    //   tooltip.maxWidth = layout.width - tooltip.left - MARGIN;
+    //   arrow.left = tooltip.left + MARGIN;
+    // }
 
     const animate = {
       top: obj.top,
