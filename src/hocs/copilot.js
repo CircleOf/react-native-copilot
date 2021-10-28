@@ -28,27 +28,23 @@ type State = {
   backdropColor: string,
   scrollView?: React.RefObject,
   stopOnOutsideClick?: boolean,
-
 };
 
 const copilot = ({
   overlay,
   tooltipComponent,
+  maskComponent,
   tooltipStyle,
-  stepNumberComponent,
   animated,
   labels,
   androidStatusBarVisible,
   backdropColor,
   stopOnOutsideClick = false,
-  svgMaskPath,
   verticalOffset = 0,
   wrapperStyle,
-  arrowColor,
-  arrowStyle,
-  arrowEnabled,
-  stepNumberEnabled,
   overlayStyle,
+  tooltipVerticalPosition,
+  tooltipHorizontalPosition,
 } = {}) =>
   (WrappedComponent) => {
     class Copilot extends Component<any, State> {
@@ -172,16 +168,17 @@ const copilot = ({
           requestAnimationFrame(() => this.start(fromStep));
         } else {
           this.eventEmitter.emit('start');
+          await this.setVisibility(true);
           await this.setCurrentStep(currentStep);
           await this.moveToCurrentStep();
-          await this.setVisibility(true);
+
           this.startTries = 0;
         }
       }
 
       stop = async (): void => {
-        await this.setVisibility(false);
         this.eventEmitter.emit('stop');
+        await this.setVisibility(false);
       }
 
       async moveToCurrentStep(): void {
@@ -206,6 +203,8 @@ const copilot = ({
               copilotEvents={this.eventEmitter}
             />
             <CopilotModal
+              steps={this.state.steps}
+              stepCount={Object.keys(this.state.steps).length}
               next={this.next}
               prev={this.prev}
               stop={this.stop}
@@ -215,20 +214,17 @@ const copilot = ({
               currentStepNumber={this.getStepNumber()}
               currentStep={this.state.currentStep}
               labels={labels}
-              stepNumberComponent={stepNumberComponent}
               tooltipComponent={tooltipComponent}
+              maskComponent={maskComponent}
               tooltipStyle={tooltipStyle}
               overlay={overlay}
               overlayStyle={overlayStyle}
               animated={animated}
+              tooltipVerticalPosition={tooltipVerticalPosition}
+              tooltipHorizontalPosition={tooltipHorizontalPosition}
               androidStatusBarVisible={androidStatusBarVisible}
               backdropColor={backdropColor}
-              svgMaskPath={svgMaskPath}
               stopOnOutsideClick={stopOnOutsideClick}
-              arrowColor={arrowColor}
-              arrowEnabled={arrowEnabled}
-              arrowStyle={arrowStyle}
-              stepNumberEnabled={stepNumberEnabled}
               ref={(modal) => { this.modal = modal; }}
             />
           </View>

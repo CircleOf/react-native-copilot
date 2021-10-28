@@ -1,5 +1,6 @@
 declare module 'react-native-copilot' {
   import { Component, ComponentProps, ComponentType, ReactElement, ReactNode } from 'react';
+  import {StyleProp, ViewStyle} from "react-native";
 
   export type Step = {
     name: string;
@@ -17,6 +18,13 @@ declare module 'react-native-copilot' {
     handlePrev: () => void;
     handleStop: () => void;
     currentStep: Step;
+    stepCount: number;
+    steps: Step[];
+    labels: {
+      previous?: string,
+      next?: string,
+      finish?: string
+    }
   };
 
   export type CopilotStepNumberProps = {
@@ -28,6 +36,7 @@ declare module 'react-native-copilot' {
    * Options for the copilot HOC
    */
   export type CopilotOptions = {
+    maskComponent?: ReactNode;
     animated?: boolean; // Use animation between steps
     overlay?: OverlayType; // The overlay in react-native copilot is the component that draws the dark transparent over the root component.
     tooltipComponent?: any; // You can customize the tooltip by passing a component here
@@ -36,6 +45,7 @@ declare module 'react-native-copilot' {
     backdropColor?: string; // You can customize the mask color - default is rgba(0, 0, 0, 0.4)
     verticalOffset?: number; // In order to adjust vertical position
     stopOnOutsideClick?: boolean; // Whether the tutorial should stop after clicking outside the step component
+    tooltipStyle?: StyleProp<ViewStyle>;
   };
 
   /**
