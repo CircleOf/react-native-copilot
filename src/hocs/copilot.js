@@ -180,8 +180,11 @@ const copilot = ({
         }
       }
 
-      stop = async (): void => {
-        this.eventEmitter.emit('stop');
+      stop = async (silent?: boolean = false): void => {
+        if (!silent) {
+          this.eventEmitter.emit('stop');
+        }
+
         await this.setVisibility(false);
       }
 
