@@ -66,7 +66,6 @@ class CopilotModal extends Component<Props, State> {
       top: new Animated.Value(0),
     },
     animated: false,
-    containerVisible: false,
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -182,22 +181,16 @@ class CopilotModal extends Component<Props, State> {
 
   animateMove(obj = {}): void {
     return new Promise((resolve) => {
-      this.setState(
-        { containerVisible: true },
-        () => {
-          requestAnimationFrame(async () => {
-            await this._animateMove(obj);
-            resolve();
-          });
-        },
-      );
+      requestAnimationFrame(async () => {
+        await this._animateMove(obj);
+        resolve();
+      });
     });
   }
 
   reset(): void {
     this.setState({
       animated: false,
-      containerVisible: false,
       layout: undefined,
     });
   }
@@ -250,7 +243,7 @@ class CopilotModal extends Component<Props, State> {
   }
 
   render() {
-    const containerVisible = this.state.containerVisible || this.props.visible;
+    const containerVisible = this.props.visible;
     const contentVisible = this.state.layout && containerVisible;
 
     const { maskComponent: MaskComponent } = this.props;
