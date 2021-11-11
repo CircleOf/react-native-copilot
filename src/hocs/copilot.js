@@ -204,6 +204,7 @@ const copilot = ({
           <View style={wrapperStyle || { flex: 1 }}>
             <WrappedComponent
               {...this.props}
+              stop={this.stop}
               start={this.start}
               currentStep={this.state.currentStep}
               visible={this.state.visible}

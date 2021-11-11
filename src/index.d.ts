@@ -71,6 +71,7 @@ declare module 'react-native-copilot' {
     currentStep: Step;
     visible: boolean;
     start: () => void; // Use this function in the root component in order to trigger the tutorial
+    stop: (silent?: boolean) => void;
   } & ComponentProps<any>;
 
   /**
