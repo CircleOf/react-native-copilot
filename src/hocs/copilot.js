@@ -181,9 +181,9 @@ const copilot = ({
         }
       }
 
-      stop = async (silent?: boolean = false): void => {
+      stop = async (silent?: boolean = false, closedByUser?: boolean = true): void => {
         if (!silent) {
-          this.eventEmitter.emit('stop');
+          this.eventEmitter.emit('stop', { silent, closedByUser });
         }
 
         await this.setVisibility(false);
