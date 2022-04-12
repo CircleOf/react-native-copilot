@@ -24,10 +24,6 @@ declare module 'react-native-copilot' {
       previous?: string,
       next?: string,
       finish?: string
-    } | {
-      previous?: string,
-      next?: string,
-      finish?: string
     }
   };
 
