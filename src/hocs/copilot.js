@@ -189,6 +189,12 @@ const copilot = ({
         await this.setVisibility(false);
       }
 
+      getLabels = () => {
+        if (labels instanceof Function) return labels(this.props);
+
+        return labels;
+      };
+
       async moveToCurrentStep(): void {
         const size = await this.state.currentStep.target.measure();
 
@@ -222,7 +228,7 @@ const copilot = ({
               isLastStep={this.isLastStep()}
               currentStepNumber={this.getStepNumber()}
               currentStep={this.state.currentStep}
-              labels={labels}
+              labels={this.getLabels()}
               tooltipComponent={tooltipComponent}
               maskComponent={maskComponent}
               tooltipStyle={tooltipStyle}
