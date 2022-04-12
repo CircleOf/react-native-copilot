@@ -16,11 +16,11 @@ declare module 'react-native-copilot' {
     isLastStep: boolean;
     handleNext: () => void;
     handlePrev: () => void;
-    handleStop: () => void;
+    handleStop: (silent?: boolean, closed?: boolean) => void;
     currentStep: Step;
     stepCount: number;
     steps: Step[];
-    labels: (props: any) => {
+    labels: {
       previous?: string,
       next?: string,
       finish?: string
