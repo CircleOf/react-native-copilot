@@ -9,7 +9,7 @@ import ViewMask from './ViewMask';
 const isFunction = value => value && (Object.prototype.toString.call(value) === '[object Function]' || typeof value === 'function' || value instanceof Function);
 
 type Props = {
-  stop: () => void,
+  stop: (silent, closed) => void,
   next: () => void,
   prev: () => void,
   currentStep: ?Step,
@@ -203,9 +203,9 @@ class CopilotModal extends Component<Props, State> {
     this.props.prev();
   }
 
-  handleStop = () => {
+  handleStop = (silent = false, closed = true) => {
     this.reset();
-    this.props.stop();
+    this.props.stop(silent, closed);
   }
 
   handleMaskClick = () => {

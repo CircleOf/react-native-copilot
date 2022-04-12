@@ -51,7 +51,7 @@ const Tooltip = ({
           <TouchableOpacity onPress={handleNext}>
             <Button>{labels.next || 'Next'}</Button>
           </TouchableOpacity> :
-          <TouchableOpacity onPress={handleStop}>
+          <TouchableOpacity onPress={() => handleStop(false, false)}>
             <Button>{labels.finish || 'Finish'}</Button>
           </TouchableOpacity>
       }
